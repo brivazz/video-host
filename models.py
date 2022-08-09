@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from typing import Optional
 
 import ormar
@@ -7,14 +7,13 @@ from db import metadata, database
 
 
 class MainMeta(ormar.ModelMeta):
-    class Meta:
-        metadata = metadata
-        database = database
+    metadata = metadata
+    database = database
 
 
 class User(ormar.Model):
-    class Meta(MainMeta()):
-        tablename: str = 'users'
+    class Meta(MainMeta):
+        pass
 
     id: int = ormar.Integer(primary_key=True)
     username: str = ormar.String(max_length=100)
@@ -23,11 +22,11 @@ class User(ormar.Model):
 
 class Video(ormar.Model):
     class Meta(MainMeta):
-        tablename: str = 'videos'
+        pass
 
     id: int = ormar.Integer(primary_key=True)
     title: str = ormar.String(max_length=50)
     description: str = ormar.String(max_length=500)
     file: str = ormar.String(max_length=1000)
-    created_at: datetime.datetime = ormar.DateTime(default=datetime.datetime.now)
+    created_date: datetime = ormar.DateTime(default=datetime.now)
     user: Optional[User] = ormar.ForeignKey(User, name='user_id')

@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class User(BaseModel):
     id: int
-    name: str
+    username: str
 
 
 class UploadVideo(BaseModel):
@@ -15,7 +15,9 @@ class UploadVideo(BaseModel):
 
 class GetVideo(BaseModel):
     user: User
-    video: UploadVideo
+    # video: UploadVideo
+    title: str
+    description: str
 
 
 class Message(BaseModel):

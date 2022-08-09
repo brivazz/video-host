@@ -2,5 +2,8 @@ import databases
 import sqlalchemy
 
 
+DATABASE_URL = "sqlite:///sqlite.db"
+database = databases.Database(DATABASE_URL)
 metadata = sqlalchemy.MetaData()
-database = databases.Database("sqlite:///sqlite.db")
+
+engine = sqlalchemy.create_engine(DATABASE_URL)
