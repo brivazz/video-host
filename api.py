@@ -1,9 +1,10 @@
 import shutil
 from typing import List
 
-from fastapi import APIRouter, UploadFile, File, Form
+from fastapi import APIRouter, UploadFile, File, Form, Request
+from fastapi.responses import JSONResponse
 
-from schemas import UploadVideo, User, GetVideo
+from schemas import UploadVideo, User, GetVideo, Message
 
 
 video_router = APIRouter()
@@ -19,7 +20,7 @@ async def root(title: str = Form(...), description: str = Form(...), file: Uploa
 
 
 
-@video_router.post('/img')
+@video_router.post('/img', status_code=201)
 async def upload_image(files: List[UploadFile] = File(...)):
     for img in files:
         with open(f"{img.filename}", 'wb') as buffer:
@@ -28,8 +29,15 @@ async def upload_image(files: List[UploadFile] = File(...)):
     return {'file_name': 'Good'}
 
 
-@video_router.get('/video')
+@video_router.get('/video', response_model=GetVideo, responses={404: {'model': Message}})
 async def get_video():
-    user = User(**{'id': 7, 'name': 'Pipec'})
-    video = UploadVideo(**{'title': 'Title', 'description': 'Description'})
-    return GetVideo(user=user, video=video)
+    user = {'id': 7, 'name': 'Pipec'}
+    video = {'title': 'Title', 'description': 'Description'}
+    info = GetVideo(user=user, video=video)
+    return JSONResponse(status_code=200, content=info.dict())
+
+
+@video_router.get('/test')
+async def get_test(request: Request):
+    print(request.base_url)
+    return {}
