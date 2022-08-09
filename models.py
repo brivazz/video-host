@@ -19,7 +19,6 @@ class User(ormar.Model):
     username: str = ormar.String(max_length=100)
 
 
-
 class Video(ormar.Model):
     class Meta(MainMeta):
         pass
