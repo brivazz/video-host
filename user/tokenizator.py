@@ -1,11 +1,13 @@
 import jwt
 from datetime import datetime, timedelta
 
+from config import GOOGLE_SECRET_KEY
+
 
 ALGORITHM = "HS256"
 access_token_jwt_subject = "access"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
-SECRET_KEY = "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"
+SECRET_KEY = GOOGLE_SECRET_KEY
 
 
 def create_token(user_id: int) -> dict:

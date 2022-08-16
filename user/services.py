@@ -5,9 +5,10 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 
 from . import schemas, models
+from config import GOOGLE_CLIENT_ID
 
 
-GOOGLE_CLIENT_ID = "398800915830-fgr57ncop84ocug5da0iunu8qeqeqv49.apps.googleusercontent.com"
+GOOGLE_CLIENT_ID = GOOGLE_CLIENT_ID
 
 
 async def create_user(user: schemas.User) -> models.User:
