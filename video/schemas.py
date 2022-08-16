@@ -1,11 +1,6 @@
-from typing import List
-
 from pydantic import BaseModel
 
-
-class User(BaseModel):
-    id: int
-    username: str
+from user.schemas import UserOut
 
 
 class UploadVideo(BaseModel):
@@ -13,11 +8,16 @@ class UploadVideo(BaseModel):
     description: str
 
 
-class GetVideo(BaseModel):
-    user: User
-    # video: UploadVideo
+class GetListVideo(BaseModel):
+    id: int
     title: str
+    file: str
     description: str
+    like_count: int
+
+
+class GetVideo(GetListVideo):
+    user: UserOut
 
 
 class Message(BaseModel):

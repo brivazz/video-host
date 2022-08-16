@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    function handleCredentialResponse(response) {
+      console.log("Encoded JWT ID token: " + response.credential);
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://localhost:8000/google/auth');
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      xhr.send(JSON.stringify({
+        'token': response.credential,
+      })
+      );
+    }
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: "398800915830-fgr57ncop84ocug5da0iunu8qeqeqv49.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "large", shape: "pill" }
+      );
+    }
+  </script>
+  <div id="buttonDiv"></div>
+</body>
+
+</html>
