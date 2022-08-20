@@ -16,7 +16,7 @@
     }
     window.onload = function () {
       google.accounts.id.initialize({
-        client_id: "398800915830-fgr57ncop84ocug5da0iunu8qeqeqv49.apps.googleusercontent.com",
+        client_id: '{{google_client_id}}',
         callback: handleCredentialResponse
       });
       google.accounts.id.renderButton(

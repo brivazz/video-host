@@ -20,8 +20,8 @@ async def google_auth(jwtoken: schemas.UserCreate) -> tuple:
     try:
         idinfo = id_token.verify_oauth2_token(jwtoken.token, requests.Request(), GOOGLE_CLIENT_ID)
     except ValueError:
-        raise HTTPException(403, "Bad code")
+        raise HTTPException(403, 'Bad code')
     user_id = await create_user(
         {'username': idinfo['name'], 'email': idinfo['email'], 'avatar': idinfo['picture']})
     internal_token = tokenizator.create_token(user_id)
-    return user_id, internal_token.get("access_token")
+    return user_id, internal_token.get('access_token')

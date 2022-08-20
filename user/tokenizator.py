@@ -4,19 +4,18 @@ from datetime import datetime, timedelta
 from config import GOOGLE_SECRET_KEY
 
 
-ALGORITHM = "HS256"
-access_token_jwt_subject = "access"
+ALGORITHM = 'HS256'
+access_token_jwt_subject = 'access'
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
-SECRET_KEY = GOOGLE_SECRET_KEY
 
 
 def create_token(user_id: int) -> dict:
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     return {
-        "access_token": create_access_token(
-            data={"user_id": user_id}, expires_delta=access_token_expires
+        'access_token': create_access_token(
+            data={'user_id': user_id}, expires_delta=access_token_expires
         ),
-        "token_type": "Token",
+        'token_type': 'Token',
     }
 
 
@@ -27,6 +26,6 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
-    to_encode.update({"exp": expire, "sub": access_token_jwt_subject})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    to_encode.update({'exp': expire, 'sub': access_token_jwt_subject})
+    encoded_jwt = jwt.encode(to_encode, GOOGLE_SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
